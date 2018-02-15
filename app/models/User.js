@@ -10,7 +10,9 @@ var userSchema = new Schema({
   password:{type: String, required: true, default:''},
   mobile:{type: String, required: true, default:''},
   createdAt: { type:Date},
-  updatedAt: { type:Date}
+  updatedAt: { type:Date},
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 });
 
 // we need to create a model using it

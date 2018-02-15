@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Dashboard</title>
+  <title>Login</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -15,28 +15,24 @@
 </head>
 <body>
 <div class="container">
-  <div class="row">
-      {{#if messages.error}}
-      <div class="card-panel  red darken-4">{{messages.error}}</div>
-      {{/if}}
-
-      {{#if messages.success}}
-      <div class="card-panel  green lighten-3">{{messages.success}}</div>
-      {{/if}}
-        <div class="col s12 m7">
-          <div class="card">
-            <div class="card-action">
-              <p>Email: {{user.email}}</p>
-              <p>UserName:  {{user.userName}}</p>
-              <p>Mobile:  {{user.mobile}}</p>
-
-            </div>
-            <div class="card-action">
-              <a href="/users/logout">Logout</a>
-            </div>
-          </div>
+ <div class="row">
+    <form class="col s12" method="post">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" name="password" type="password" class="validate">
+          <label for="email">Password</label>
         </div>
-      </div>              
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="confirmpassword" name="confirmpassword" type="password" class="validate">
+          <label for="confirmpassword">Confirm Password</label>
+        </div>
+      </div>
+      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+  </button>
+    </form>
+  </div>                
 </div>
 </body>
 </html>

@@ -7,6 +7,8 @@ var mongoose = require('mongoose');
 var path = require('path');
 var hbs = require('hbs');
 var session = require('express-session');
+var flash = require('express-flash');
+
 app.use(session({
   secret: 'mysecretapp',
   resave: false,
@@ -14,6 +16,9 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: false }
 }))
+
+app.use(flash());
+
 // requiring mongoose objectId
 var ObjectId = require('mongodb').ObjectId; 
 var dbpath = 'mongodb://localhost/CartApp';

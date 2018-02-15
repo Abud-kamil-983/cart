@@ -16,6 +16,13 @@
 <body>
 <div class="container">
  <div class="row">
+      {{#if messages.error}}
+      <div class="card-panel  red darken-4">{{messages.error}}</div>
+      {{/if}}
+
+      {{#if messages.success}}
+      <div class="card-panel  green lighten-3">{{messages.success}}</div>
+      {{/if}}
     <form class="col s12" method="post" action="/users/login">
       <div class="row">
         <div class="input-field col s12">
@@ -29,9 +36,18 @@
           <label for="password">Password</label>
         </div>
       </div>
-      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-  </button>
+      <div class="row">
+        <div class="input-field col s12">
+          <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+          </button>
+        </div>
+      </div>
+      
     </form>
+    <div class="col s12">
+      <a href="/users/forgot-password" class="waves-effect waves-light btn">reset password</a>
+    </div>
+    
   </div>                
 </div>
 </body>
