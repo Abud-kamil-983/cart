@@ -100,7 +100,7 @@ module.exports.controller = function(app){
 				});
 
 				var mailOptions = {
-					to: 'kamilthecyclone@gmail.com',
+					to: user.email,
 					from: 'md.abud.kamil@gmail.com',
 					subject: 'Password Reset',
 					text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
