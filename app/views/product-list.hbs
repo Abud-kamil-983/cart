@@ -16,9 +16,16 @@
 </head>
 <body>
 <div class="container">
-    <a style="float: right;" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+    <a href="/products/create" style="float: right;" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
 
     <table class="bordered">
+      {{#if messages.error}}
+      <div class="card-panel  red darken-4">{{messages.error}}</div>
+      {{/if}}
+
+      {{#if messages.success}}
+      <div class="card-panel  green lighten-3">{{messages.success}}</div>
+      {{/if}}
         <thead>
           <tr>
               <th>Name</th>
@@ -37,8 +44,8 @@
             <td>{{this.category}}</td>
             <td>{{this.price}}</td>
             <td>{{this.description}}</td>
-            <td><a href="/products/edit/this.id"><i class="material-icons">edit</i></td>
-            <td><i class="material-icons">delete</i></td>
+            <td><a href="/products/edit/{{this.id}}"><i class="material-icons">edit</i></td>
+            <td><a href="/products/delete/{{this.id}}"><i class="material-icons">delete</i></td>
           </tr>
           {{/each}}
         </tbody>

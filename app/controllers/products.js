@@ -25,7 +25,7 @@ module.exports.controller = function(app){
 				}
 				else{
 					req.flash('success', 'successfully Created.');
-					res.redirect('/products/create');
+					res.redirect('/products/list');
 				}
 			});	
 
@@ -60,6 +60,53 @@ module.exports.controller = function(app){
 				}
 			});
 		});
+
+		productRouter.get('/edit/:id', function(req, res){
+			var id = req.params.id;
+
+			// checking if id is valid
+
+			if (!ObjectId.isValid(id)) {
+				res.send("invalid id");
+			}
+
+			productModel.findById(id, function(err, result){
+				if (err) {
+					res.status(400).send(err);
+				}
+				else{
+					res.render('product-edit.hbs', {product:result});
+				}
+			});
+		});
+
+		productRouter.post('/edit/:id', function(req, res){
+			var updatedData = req.body;
+			productModel.findOneAndUpdate({'_id':req.params.id}, updatedData, function(err, result){
+				if (err) {
+					res.render('error.hbs', {error:err});
+				}
+				else{
+					req.flash('success', 'successfully Updated.');
+					res.redirect('/products/list');
+				}
+			});
+		});
+
+		productRouter.get('/delete/:id', function(req, res){
+
+			productModel.remove({'_id':req.params.id}, function(err, result){
+				if (err) {
+					res.render('error.hbs', {error:err});
+				}
+				else{
+					req.flash('success', 'successfully Deleted.');
+					res.redirect('/products/list');
+				}
+			});
+	
+		});
+
 
 		app.use('/products', productRouter);
 

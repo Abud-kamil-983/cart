@@ -77,11 +77,10 @@ module.exports.controller = function(app){
 		var token = crypto.randomBytes(20).toString('hex');
 		userModel.findOne({ email: req.body.email }, function(err, user) {
 			console.log(user);
-        if (!user) {
-          req.flash('error', 'No account with that email address exists.');
-          res.redirect('users/forgot-password');
+        if (user == null) {
+          res.render('error.hbs',  {error:"user not found"})
         }
-
+        else{
         user.resetPasswordToken = token;
         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
@@ -120,6 +119,7 @@ module.exports.controller = function(app){
 
 			}
         });
+    }
       });
 
 	});
