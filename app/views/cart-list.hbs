@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Cart</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>         
+</head>
+<body>
+<div class="container">
+    <div class="row">
+      {{#if messages.error}}
+      <div class="card-panel  red darken-4">{{messages.error}}</div>
+      {{/if}}
+
+      {{#if messages.success}}
+      <div class="card-panel  green lighten-3">{{messages.success}}</div>
+      {{/if}}
+        {{#each products}}
+        <div class="col s4 m6">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">{{this.productName}}</span>
+              <p>{{this.description}}</p>
+            </div>
+            <div class="card-action">
+              <a href="#">$ {{this.price}}</a>
+              <a href="/products/add-to-cart/{{this.id}}">Add to cart</a>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>                     
+</div>
+</body>
+</html>

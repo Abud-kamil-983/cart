@@ -107,6 +107,70 @@ module.exports.controller = function(app){
 	
 		});
 
+		productRouter.get('/cart-list', function(req, res){
+			productModel.find({}, function(err, result){
+				if (err) {
+					res.render('error.hbs', {error:err});
+				}
+				else{
+					res.render('cart-list.hbs', {products:result});
+				}
+			});
+		});
+
+		productRouter.get('/add-to-cart/:id', function(req, res){
+			 req.session.cart = req.session.cart || {};
+			 var cart = req.session.cart;
+			 var id = req.params.id;
+
+			// checking if id is valid
+
+			if (!ObjectId.isValid(id)) {
+				res.send("invalid id");
+			}
+
+			productModel.findById(id, function(err, result){
+				if (err) {
+					res.status(400).send(err);
+				}
+				else{
+					if (cart[id]) {
+						cart[id].qty++;
+					}
+					else{
+						cart[id] = {
+							id:result.id,
+							name:result.productName,
+							price:result.price,
+							qty: 1
+						}
+					}
+					req.flash('success', 'successfully Added To Cart.');
+					res.redirect('/products/cart');
+				}
+
+
+			});
+
+		});
+
+		productRouter.get('/cart', function(req, res){
+			var cart = req.session.cart;
+			totalCarts = [];
+			for (var item in cart) {
+				totalCarts.push(cart[item]);
+			}
+			res.render('cart.hbs', {carts:totalCarts});
+		});
+
+		productRouter.get('/delete-cart/:id', function(req, res){
+			var id = req.params.id;
+			delete req.session.cart[id];
+			req.flash('success', 'successfully Deleted.');
+			res.redirect('/products/cart');
+
+		});
+
 
 		app.use('/products', productRouter);
 

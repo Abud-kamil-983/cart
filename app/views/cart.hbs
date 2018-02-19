@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Cart List</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>         
+</head>
+<body>
+<div class="container">
+
+    <table class="bordered">
+      {{#if messages.error}}
+      <div class="card-panel  red darken-4">{{messages.error}}</div>
+      {{/if}}
+
+      {{#if messages.success}}
+      <div class="card-panel  green lighten-3">{{messages.success}}</div>
+      {{/if}}
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Delete</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {{#each carts}}
+          <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.qty}}</td>
+            <td><a href="/products/delete-cart/{{this.id}}"><i class="material-icons">delete</i></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+                         
+</div>
+</body>
+</html>
