@@ -6,10 +6,12 @@ var ObjectId = require('mongodb').ObjectId;
 
 
 module.exports.controller = function(app){
-
+		// route to render product create page
 		productRouter.get('/create', function(req, res){
 			res.render('product-create.hbs');
 		});
+
+		// route to save product data to database
 
 		productRouter.post('/save', function(req, res){
 			var newProduct = new productModel();
@@ -31,6 +33,8 @@ module.exports.controller = function(app){
 
 		});
 
+		// route to list all saved products
+
 		productRouter.get('/list', function(req, res){
 			productModel.find({}, function(err, result){
 				if (err) {
@@ -41,6 +45,8 @@ module.exports.controller = function(app){
 				}
 			});
 		});
+
+		// route to show details of single product based on id
 
 		productRouter.get('/detail/:id', function(req, res){
 			var id = req.params.id;
@@ -61,6 +67,8 @@ module.exports.controller = function(app){
 			});
 		});
 
+		// route to render edit form with data
+
 		productRouter.get('/edit/:id', function(req, res){
 			var id = req.params.id;
 
@@ -80,6 +88,8 @@ module.exports.controller = function(app){
 			});
 		});
 
+		// route to save edited product data
+
 		productRouter.post('/edit/:id', function(req, res){
 			var updatedData = req.body;
 			productModel.findOneAndUpdate({'_id':req.params.id}, updatedData, function(err, result){
@@ -92,6 +102,8 @@ module.exports.controller = function(app){
 				}
 			});
 		});
+
+		// route to delete particular product
 
 		productRouter.get('/delete/:id', function(req, res){
 
@@ -107,6 +119,8 @@ module.exports.controller = function(app){
 	
 		});
 
+		// route to show all the product like shop
+
 		productRouter.get('/cart-list', function(req, res){
 			productModel.find({}, function(err, result){
 				if (err) {
@@ -117,6 +131,8 @@ module.exports.controller = function(app){
 				}
 			});
 		});
+
+		// route to functionality of add to cart
 
 		productRouter.get('/add-to-cart/:id', function(req, res){
 			 req.session.cart = req.session.cart || {};
@@ -154,6 +170,8 @@ module.exports.controller = function(app){
 
 		});
 
+		// route to render cart page that contain all added item
+
 		productRouter.get('/cart', function(req, res){
 			var cart = req.session.cart;
 			totalCarts = [];
@@ -163,6 +181,8 @@ module.exports.controller = function(app){
 			res.render('cart.hbs', {carts:totalCarts});
 		});
 
+		// route to delete a item from cart
+
 		productRouter.get('/delete-cart/:id', function(req, res){
 			var id = req.params.id;
 			delete req.session.cart[id];
@@ -171,7 +191,8 @@ module.exports.controller = function(app){
 
 		});
 
-
+		// making a group of route with prefix products
+		
 		app.use('/products', productRouter);
 
 }

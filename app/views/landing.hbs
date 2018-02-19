@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Error</title>
+  <title>Home</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -13,11 +13,18 @@
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>         
 </head>
-<body>
+<body style="background-color: #ee6e73;">
 <div class="container">
  <div class="row">
-    <div style="color: white;" class="card-panel  red darken-4">{{error}}</div>
-  </div>                
+      <div class="col s12">
+        <div style="margin: 10px;">
+          <a href="/users/login/screen" id="download-button" class="btn-large waves-effect waves-light">Login</a>
+          <a href="/users/create" id="download-button" class="btn-large waves-effect waves-light">Sign Up</a>
+          <a href="/products/cart-list" id="download-button" class="btn-large waves-effect waves-light">Shopping Cart</a>
+          <a href="/products/list" id="download-button" class="btn-large waves-effect waves-light">Product Section</a>
+        </div>
+    </div>                
+</div>
 </div>
 </body>
 </html>

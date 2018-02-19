@@ -9,11 +9,19 @@ var nodemailer = require("nodemailer");
 
 
 module.exports.controller = function(app){
+	// route to render landing page
+	userRouter.get('/', function(req, res){
+		res.render('landing.hbs');
+	});
+
+	// route to render sign up form
 
 	userRouter.get('/create', function(req, res){
 		res.render('register.hbs');
 
 	});
+
+	// route to save sign up data
 
 	userRouter.post('/save', function(req, res){
 		var newUser = new userModel();
@@ -38,9 +46,13 @@ module.exports.controller = function(app){
 
 	});
 
+	// route to render login form
+
 	userRouter.get('/login/screen', function(req, res){
 		res.render('login.hbs');
 	});
+
+	// route to perform login 
 
 	userRouter.post('/login', function(req, res){
 		userModel.findOne({$and:[{'email':req.body.email}, {'password':req.body.password}]}, function(err, userData){
@@ -63,17 +75,22 @@ module.exports.controller = function(app){
 		res.render('dashboard.hbs', {user:req.session.user});
 	});
 
+// for logout
+
 	userRouter.get('/logout', function(req, res){
 		req.session.destroy(function(err){
 			res.redirect('/users/login/screen');
 		})
 	});
 
+	// to render forgot password page
+
 	userRouter.get('/forgot-password', function(req, res){
 		res.render('forgot-password.hbs');
 	});
 
 	userRouter.post('/forgot-password', function(req, res){
+		 // generaing a hash token to validate user request	
 		var token = crypto.randomBytes(20).toString('hex');
 		userModel.findOne({ email: req.body.email }, function(err, user) {
 			console.log(user);
@@ -81,6 +98,7 @@ module.exports.controller = function(app){
           res.render('error.hbs',  {error:"user not found"})
         }
         else{
+
         user.resetPasswordToken = token;
         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
@@ -89,12 +107,13 @@ module.exports.controller = function(app){
 				res.render('error.hbs', {error:err}); 
 			}
 			else{
+				// enabling smtp service
 				var smtpTransport = nodemailer.createTransport({
 					service: "gmail",
 					host: "smtp.gmail.com",
 					auth: {
 					user: "md.abud.kamil@gmail.com",
-					pass: "toshisabri"
+					pass: "demo"
 					}
 				});
 
@@ -123,6 +142,8 @@ module.exports.controller = function(app){
       });
 
 	});
+
+	// to render reset option page
 
 	userRouter.get('/reset/:token', function(req, res) {
 	  userModel.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
